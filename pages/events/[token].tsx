@@ -1,5 +1,6 @@
 import { NextPage, GetServerSideProps } from "next";
 import Link from "next/link";
+import Head from "next/head";
 import dayjs from "dayjs";
 import { graphqlClient } from "../../lib/graphql/client";
 import { GetEventQuery } from "../../lib/graphql/generated";
@@ -25,9 +26,19 @@ function getTotalScores(event: Event): number[] {
 }
 
 const EventPage: NextPage<Props> = ({ event }) => {
+  const formattedDate = dayjs(event.eventDate).format("YYYY/M/D");
   return (
     <main>
-      <h1>{dayjs(event.eventDate).format("YYYY/M/D")}</h1>
+      <Head>
+        <title>{formattedDate}の対局 | Tolymer One</title>
+        <meta
+          name="description"
+          content={`${formattedDate}開催、面子は ${event.participants.map(
+            (p) => p.name
+          )}`}
+        />
+      </Head>
+      <h1>{formattedDate}</h1>
       <Link href="/events/[token]/input" as={`/events/${event.token}/input`}>
         <a>結果入力</a>
       </Link>
