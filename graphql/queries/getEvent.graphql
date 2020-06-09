@@ -1,0 +1,24 @@
+query getEvent($token: String!) {
+  event(token: $token) {
+    token
+    eventDate
+    participants {
+      id
+      name
+    }
+    games {
+      id
+      results {
+        participantId
+        score
+        rank
+      }
+    }
+    tip {
+      results {
+        participantId
+        score
+      }
+    }
+  }
+}

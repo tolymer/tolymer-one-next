@@ -1,0 +1,7 @@
+mutation createEvent($eventDate: ISO8601Date!, $participants: [String!]!) {
+  createEvent(input: { eventDate: $eventDate, participants: $participants }) {
+    event {
+      token
+    }
+  }
+}

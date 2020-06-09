@@ -1,0 +1,13 @@
+schema: ../tolymer-one-api/graphql/schema.graphql
+documents: ./graphql/**/*.graphql
+generates:
+  lib/graphql/generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request
+    config:
+      skipTypename: true
+      preResolveTypes: true
+      scalars:
+        ISO8601Date: string

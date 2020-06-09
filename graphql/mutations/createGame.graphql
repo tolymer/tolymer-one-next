@@ -1,0 +1,12 @@
+mutation createGame($eventToken: String!, $results: [GameResultInput!]!) {
+  createGame(input: { eventToken: $eventToken, results: $results }) {
+    game {
+      id
+      results {
+        participantId
+        score
+        rank
+      }
+    }
+  }
+}
