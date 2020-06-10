@@ -4,7 +4,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "deploy": "vercel",
+    "deploy": "vercel --prod",
     "codegen": "graphql-codegen"
   },
   "dependencies": {
