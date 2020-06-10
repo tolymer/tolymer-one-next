@@ -33,9 +33,9 @@ const EventPage: NextPage<Props> = ({ event }) => {
         <title>{formattedDate}の対局 | Tolymer One</title>
         <meta
           name="description"
-          content={`${formattedDate}開催、面子は ${event.participants.map(
-            (p) => p.name
-          )}`}
+          content={`${formattedDate}開催、面子は ${event.participants
+            .map((p) => p.name)
+            .join("、")}`}
         />
       </Head>
       <h1>{formattedDate}</h1>
