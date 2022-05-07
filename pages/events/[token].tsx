@@ -1,29 +1,20 @@
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
 import { NextPage, GetServerSideProps } from "next";
 import Link from "next/link";
 import Head from "next/head";
 import dayjs from "dayjs";
 import { graphqlClient } from "../../lib/graphql/client";
 import { GetEventQuery } from "../../lib/graphql/generated";
+import { Header } from "../../components/pages/events/Header";
+import { ResultTable } from "../../components/pages/events/ResultTable";
+import { Button, LinkButton } from "../../components/Button";
 
 type Event = GetEventQuery["event"];
 
 type Props = {
   event: Event;
 };
-
-function getTotalScores(event: Event): number[] {
-  const scores: Record<number, number> = {};
-  event.games.forEach((game) => {
-    game.results.forEach((result) => {
-      if (scores[result.participantId] === undefined) {
-        scores[result.participantId] = 0;
-      }
-      scores[result.participantId] += result.score;
-    });
-  });
-
-  return event.participants.map((p) => scores[p.id]);
-}
 
 const EventPage: NextPage<Props> = ({ event }) => {
   const formattedDate = dayjs(event.eventDate).format("YYYY/M/D");
@@ -38,44 +29,25 @@ const EventPage: NextPage<Props> = ({ event }) => {
             .join("、")}`}
         />
       </Head>
-      <h1>{formattedDate}</h1>
-      <Link href="/events/[token]/input" as={`/events/${event.token}/input`}>
-        <a>結果入力</a>
-      </Link>
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            {event.participants.map((p) => (
-              <th key={p.id}>{p.name}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {event.games.map((game, i) => (
-            <tr key={game.id}>
-              <th>{i + 1}</th>
-              {event.participants.map((p) => (
-                <td key={p.id}>
-                  {
-                    game.results.filter((r) => r.participantId === p.id)[0]
-                      .score
-                  }
-                </td>
-              ))}
-            </tr>
-          ))}
-          <tr>
-            <th>合計</th>
-            {getTotalScores(event).map((score, i) => (
-              <td key={i}>{score}</td>
-            ))}
-          </tr>
-        </tbody>
-      </table>
+      <Header title={formattedDate} />
+      <ResultTable event={event} />
+      <div css={inputButtonWrapperStyle}>
+        <LinkButton
+          href="/events/[token]/input"
+          as={`/events/${event.token}/input`}
+          kind="primary"
+        >
+          スコア入力
+        </LinkButton>
+      </div>
     </main>
   );
 };
+
+const inputButtonWrapperStyle = css`
+  margin-top: 40px;
+  text-align: center;
+`;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context;

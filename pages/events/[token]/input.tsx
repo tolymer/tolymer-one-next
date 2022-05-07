@@ -4,6 +4,7 @@ import { graphqlClient } from "../../../lib/graphql/client";
 import { GetEventQuery } from "../../../lib/graphql/generated";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Header } from "../../../components/pages/events/Header";
 
 type Props = {
   event: GetEventQuery["event"];
@@ -33,9 +34,14 @@ const InputGameResultPage: NextPage<Props> = ({ event }) => {
 
   return (
     <main>
-      <Link href="/events/[token]" as={`/events/${event.token}`}>
-        <a>戻る</a>
-      </Link>
+      <Header
+        title="スコア入力"
+        leftButton={
+          <Link href="/events/[token]" as={`/events/${event.token}`}>
+            <a>＜</a>
+          </Link>
+        }
+      ></Header>
       <form onSubmit={handleSubmit}>
         <ul>
           {event.participants.map((p, i) => (

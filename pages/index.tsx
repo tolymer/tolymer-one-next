@@ -5,24 +5,6 @@ import { jsx, css } from "@emotion/core";
 import { EventForm, EventFormValue } from "../components/EventForm";
 import { graphqlClient } from "../lib/graphql/client";
 
-const sticksStyle = css`
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 24px;
-  width: 313px;
-  height: 120px;
-  background-image: url(/sticks.svg);
-  background-size: 313px 214px;
-  background-position: bottom;
-`;
-
-const titleStyle = css`
-  font-size: 32px;
-  margin-bottom: 32px;
-  text-align: center;
-  font-family: Asap, sans-serif;
-`;
-
 const Home: NextPage = () => {
   const router = useRouter();
 
@@ -43,3 +25,21 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+const sticksStyle = css`
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 24px;
+  width: 313px;
+  height: 120px;
+  background-image: url(/sticks.svg);
+  background-size: 313px 214px;
+  background-position: bottom;
+`;
+
+const titleStyle = css`
+  font-size: 32px;
+  margin-bottom: 32px;
+  text-align: center;
+  font-family: Asap, sans-serif;
+`;
