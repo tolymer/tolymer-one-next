@@ -36,8 +36,16 @@ export const ResultTable: FC<Props> = ({ event }) => {
           </tr>
         </thead>
         <tbody>
+          {event.games.length === 0 && (
+            <tr>
+              <th css={gameNumberStyle}></th>
+              {event.participants.map((p) => {
+                <td></td>;
+              })}
+            </tr>
+          )}
           {event.games.map((game, i) => (
-            <tr key={1}>
+            <tr key={game.id}>
               <th css={gameNumberStyle}>
                 <a href="#TODO">{i + 1}</a>
               </th>
@@ -49,12 +57,14 @@ export const ResultTable: FC<Props> = ({ event }) => {
               })}
             </tr>
           ))}
-          <tr css={totalRowStyle}>
-            <th></th>
-            {getTotalScores(event).map((score, i) => (
-              <ScoreRow key={i} score={score} />
-            ))}
-          </tr>
+          {event.games.length !== 0 && (
+            <tr css={totalRowStyle}>
+              <th></th>
+              {getTotalScores(event).map((score, i) => (
+                <ScoreRow key={i} score={score} />
+              ))}
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

@@ -122,11 +122,10 @@ export const LinkButton: FC<ButtonLinkProps> = ({
   href,
   as,
   kind = "normal",
-  size = "normal",
   children,
   ...props
 }) => {
-  const styles = [baseStyle, kinds[kind], sizes[size]];
+  const styles = [baseStyle, kinds[kind]];
   return (
     <Link href={href} as={as}>
       <a css={styles} {...props}>

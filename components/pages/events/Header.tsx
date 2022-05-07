@@ -41,8 +41,8 @@ const h1Style = css`
 
 const leftButtonStyle = css`
   position: absolute;
-  left: 5px;
-  top: 5px;
+  left: 12px;
+  top: 16px;
 `;
 
 const rightButtonStyle = css`
