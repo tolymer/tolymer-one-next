@@ -1,14 +1,13 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { NextPage, GetServerSideProps } from "next";
-import Link from "next/link";
 import Head from "next/head";
 import dayjs from "dayjs";
-import { graphqlClient } from "../../lib/graphql/client";
-import { GetEventQuery } from "../../lib/graphql/generated";
-import { Header } from "../../components/pages/events/Header";
-import { ResultTable } from "../../components/pages/events/ResultTable";
-import { Button, LinkButton } from "../../components/Button";
+import { graphqlClient } from "../../../lib/graphql/client";
+import { GetEventQuery } from "../../../lib/graphql/generated";
+import { Header } from "../../../components/pages/events/Header";
+import { ResultTable } from "../../../components/pages/events/ResultTable";
+import { LinkButton } from "../../../components/Button";
 
 type Event = GetEventQuery["event"];
 
@@ -24,7 +23,7 @@ const EventPage: NextPage<Props> = ({ event }) => {
         <title>{formattedDate}の対局 | Tolymer One</title>
         <meta
           name="description"
-          content={`${formattedDate}開催、面子は ${event.participants
+          content={`${formattedDate}開催。メンバーは ${event.participants
             .map((p) => p.name)
             .join("、")}`}
         />
