@@ -1,0 +1,18 @@
+mutation updateEvent(
+  $eventToken: String!
+  $eventDate: ISO8601Date!
+  $participants: [ParticipantRenameInput!]!
+) {
+  updateEvent(input: { eventToken: $eventToken, eventDate: $eventDate }) {
+    event {
+      token
+    }
+  }
+  updateParticipants(
+    input: { eventToken: $eventToken, renamingParticipants: $participants }
+  ) {
+    participants {
+      id
+    }
+  }
+}

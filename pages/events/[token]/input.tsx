@@ -96,7 +96,7 @@ const InputGameResultPage: NextPage<Props> = ({ event }) => {
         title="スコア入力"
         leftButton={
           <Link href="/events/[token]" as={`/events/${event.token}`}>
-            <a css={backButtonStyle}>
+            <a>
               <IoMdArrowRoundBack />
             </a>
           </Link>
@@ -140,10 +140,6 @@ const rootStyle = css`
   margin-left: auto;
   margin-right: auto;
   max-width: 640px;
-`;
-
-const backButtonStyle = css`
-  font-size: 20px;
 `;
 
 const formTableStyle = css`

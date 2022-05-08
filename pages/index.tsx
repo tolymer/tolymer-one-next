@@ -8,7 +8,11 @@ import { graphqlClient } from "../lib/graphql/client";
 const Home: NextPage = () => {
   const router = useRouter();
 
-  async function handleSubmit(value: EventFormValue): Promise<void> {
+  async function handleSubmit(formValue: EventFormValue): Promise<void> {
+    const value = {
+      eventDate: formValue.eventDate,
+      participants: formValue.participants.map((p) => p.name),
+    };
     const result = await graphqlClient.createEvent(value);
     const token = result.createEvent?.event?.token;
     if (!token) throw new Error("Request failed");

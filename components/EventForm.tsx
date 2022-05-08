@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import { FC, useCallback, useMemo, useEffect, useState } from "react";
+import { FC, useCallback } from "react";
 import dayjs from "dayjs";
 import { Input } from "../components/Input";
 import { Button } from "./Button";
@@ -19,7 +19,7 @@ export type { EventFormValue };
 const placeholderNames = ["ほかむら", "たに", "せんすい", "たなか"];
 
 const initialState = {
-  participants: ["", "", "", ""],
+  participants: Array(4).fill({ name: "" }),
   eventDate: dayjs().format("YYYY-MM-DD"),
 };
 
@@ -72,7 +72,7 @@ export const EventForm: FC<Props> = ({ onSubmit }) => {
   const handleSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      storeParticipants(state.participants);
+      storeParticipants(state.participants.map((p) => p.name));
       onSubmit(state);
     },
     [state, onSubmit]
@@ -89,7 +89,9 @@ export const EventForm: FC<Props> = ({ onSubmit }) => {
               onClick={() =>
                 dispatch({
                   type: "setParticipants",
-                  participants: previousParticipants,
+                  participants: previousParticipants.map((name) => {
+                    return { name };
+                  }),
                 })
               }
             >
@@ -98,11 +100,11 @@ export const EventForm: FC<Props> = ({ onSubmit }) => {
           )}
         </header>
         <ul css={participantsListStyle}>
-          {state.participants.map((name, i) => (
+          {state.participants.map((participant, i) => (
             <li key={i}>
               <Input
                 type="text"
-                value={name}
+                value={participant.name}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   dispatch({
                     type: "inputName",

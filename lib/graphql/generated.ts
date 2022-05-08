@@ -258,6 +258,15 @@ export type CreateGameMutationVariables = {
 
 export type CreateGameMutation = { createGame?: Maybe<{ game: { id: number, results: Array<{ participantId: number, score: number, rank: number }> } }> };
 
+export type UpdateEventMutationVariables = {
+  eventToken: Scalars['String'];
+  eventDate: Scalars['ISO8601Date'];
+  participants: Array<ParticipantRenameInput>;
+};
+
+
+export type UpdateEventMutation = { updateEvent?: Maybe<{ event: { token: string } }>, updateParticipants?: Maybe<{ participants: Array<{ id: number }> }> };
+
 export type GetEventQueryVariables = {
   token: Scalars['String'];
 };
@@ -285,6 +294,20 @@ export const CreateGameDocument = gql`
         score
         rank
       }
+    }
+  }
+}
+    `;
+export const UpdateEventDocument = gql`
+    mutation updateEvent($eventToken: String!, $eventDate: ISO8601Date!, $participants: [ParticipantRenameInput!]!) {
+  updateEvent(input: {eventToken: $eventToken, eventDate: $eventDate}) {
+    event {
+      token
+    }
+  }
+  updateParticipants(input: {eventToken: $eventToken, renamingParticipants: $participants}) {
+    participants {
+      id
     }
   }
 }
@@ -327,6 +350,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     createGame(variables: CreateGameMutationVariables): Promise<CreateGameMutation> {
       return withWrapper(() => client.request<CreateGameMutation>(print(CreateGameDocument), variables));
+    },
+    updateEvent(variables: UpdateEventMutationVariables): Promise<UpdateEventMutation> {
+      return withWrapper(() => client.request<UpdateEventMutation>(print(UpdateEventDocument), variables));
     },
     getEvent(variables: GetEventQueryVariables): Promise<GetEventQuery> {
       return withWrapper(() => client.request<GetEventQuery>(print(GetEventDocument), variables));

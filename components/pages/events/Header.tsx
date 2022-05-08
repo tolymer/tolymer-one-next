@@ -43,10 +43,20 @@ const leftButtonStyle = css`
   position: absolute;
   left: 12px;
   top: 16px;
+  font-size: 20px;
+
+  a {
+    color: black;
+  }
 `;
 
 const rightButtonStyle = css`
   position: absolute;
-  right: 5px;
-  top: 5px;
+  right: 12px;
+  top: 16px;
+  font-size: 20px;
+
+  a {
+    color: black;
+  }
 `;

@@ -8,6 +8,9 @@ import { GetEventQuery } from "../../../lib/graphql/generated";
 import { Header } from "../../../components/pages/events/Header";
 import { ResultTable } from "../../../components/pages/events/ResultTable";
 import { LinkButton } from "../../../components/Button";
+import Link from "next/link";
+import { IoMdHome } from "react-icons/io";
+import { BiEdit } from "react-icons/bi";
 
 type Event = GetEventQuery["event"];
 
@@ -20,15 +23,31 @@ const EventPage: NextPage<Props> = ({ event }) => {
   return (
     <main>
       <Head>
-        <title>{formattedDate} | Tolymer One</title>
+        <title>{formattedDate}のスコア - Tolymer One</title>
         <meta
           name="description"
-          content={`${formattedDate}開催。メンバーは${event.participants
+          content={`${formattedDate}に開催。参加者は${event.participants
             .map((p) => p.name)
             .join("、")}`}
         />
       </Head>
-      <Header title={formattedDate} />
+      <Header
+        title={formattedDate}
+        leftButton={
+          <Link href="/">
+            <a>
+              <IoMdHome />
+            </a>
+          </Link>
+        }
+        rightButton={
+          <Link href="/events/[token]/edit" as={`/events/${event.token}/edit`}>
+            <a>
+              <BiEdit />
+            </a>
+          </Link>
+        }
+      />
       <ResultTable event={event} />
       <div css={inputButtonWrapperStyle}>
         <LinkButton

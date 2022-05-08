@@ -1,20 +1,25 @@
 import { useReducer } from "react";
 
+export type Participant = {
+  id?: number;
+  name: string;
+};
+
 export type EventFormValue = {
-  participants: string[];
+  participants: Participant[];
   eventDate: string;
 };
 
 type Action =
   | { type: "inputName"; index: number; value: string }
   | { type: "inputDate"; value: string }
-  | { type: "setParticipants"; participants: string[] };
+  | { type: "setParticipants"; participants: Participant[] };
 
 function reducer(state: EventFormValue, action: Action) {
   switch (action.type) {
     case "inputName":
       const participants = state.participants.slice();
-      participants[action.index] = action.value;
+      participants[action.index].name = action.value;
       return { ...state, participants };
     case "inputDate":
       return { ...state, eventDate: action.value };
