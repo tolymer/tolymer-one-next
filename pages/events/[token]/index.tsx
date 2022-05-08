@@ -20,10 +20,10 @@ const EventPage: NextPage<Props> = ({ event }) => {
   return (
     <main>
       <Head>
-        <title>{formattedDate}の対局 | Tolymer One</title>
+        <title>{formattedDate} | Tolymer One</title>
         <meta
           name="description"
-          content={`${formattedDate}開催。メンバーは ${event.participants
+          content={`${formattedDate}開催。メンバーは${event.participants
             .map((p) => p.name)
             .join("、")}`}
         />

@@ -16,7 +16,7 @@ type Props = {
 
 type ScoreInputState =
   | { state: "inputted"; value: string }
-  | { state: "calculated"; value: number } // top
+  | { state: "calculated"; value: number }
   | null;
 
 function scoreInputToValue(input: ScoreInputState): number {
@@ -189,11 +189,6 @@ const inputStyle = (score: number) => css`
 const buttonsStyle = css`
   margin-top: 60px;
   text-align: center;
-`;
-
-const buttonStyle = css`
-  font-size: 22px;
-  margin: 10px;
 `;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
