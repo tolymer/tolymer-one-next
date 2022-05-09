@@ -32,10 +32,11 @@ export const NewEventForm: FC<Props> = ({ onSubmit }) => {
       event.preventDefault();
       storeParticipants(state.participants.map((p) => p.name));
       setLoading(true);
-      onSubmit(state).finally(async () => {
-        await wait(1000); // ページ遷移前にloadingが終わるので遅らせる
-        setLoading(false);
-      });
+      onSubmit(state)
+        .then(() => wait(3000)) // ページ遷移前にloadingが終わるので遅らせる
+        .finally(() => {
+          setLoading(false);
+        });
     },
     [state, onSubmit]
   );
