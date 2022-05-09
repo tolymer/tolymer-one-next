@@ -7,10 +7,7 @@ export default function App({ Component, pageProps }: any): JSX.Element {
     <>
       <Head>
         <title>Tolymer One - 麻雀スコアブック</title>
-        <meta
-          name="viewport"
-          content="width=device-width,height=device-height"
-        />
+        <meta name="viewport" content="width=device-width,height=device-height" />
       </Head>
       <Component {...pageProps} />
     </>

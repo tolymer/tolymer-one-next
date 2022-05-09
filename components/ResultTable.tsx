@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import Link from "next/link";
-import { FC } from "react";
-import { GetEventQuery } from "../lib/graphql/generated";
+import type { FC } from "react";
+import type { GetEventQuery } from "../lib/graphql/generated";
 
 type Event = GetEventQuery["event"];
 
@@ -30,6 +30,7 @@ function getTotalScores(event: Event): number[] {
 }
 
 export const ResultTable: FC<Props> = ({ event }) => {
+  const tip = event.tip;
   return (
     <div css={rootStyle}>
       <table css={tableStyle}>
@@ -63,7 +64,7 @@ export const ResultTable: FC<Props> = ({ event }) => {
               })}
             </tr>
           ))}
-          {event.tip && (
+          {tip && (
             <tr>
               <th css={[gameNumberStyle, tipStyle]}>
                 <Link href="/events/[token]/tip" as={`/events/${event.token}/tip`}>
@@ -71,7 +72,7 @@ export const ResultTable: FC<Props> = ({ event }) => {
                 </Link>
               </th>
               {event.participants.map((p) => {
-                const score = event.tip!.results.filter((r) => r.participantId === p.id)[0].score;
+                const score = tip.results.filter((r) => r.participantId === p.id)[0].score;
                 return <ScoreRow key={p.id} score={score} />;
               })}
             </tr>

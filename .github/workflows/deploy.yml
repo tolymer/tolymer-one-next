@@ -16,6 +16,7 @@ jobs:
           node-version: 16
           cache: yarn
       - run: yarn install
+      - run: yarn run lint
       - uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}

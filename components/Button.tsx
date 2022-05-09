@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import Link from "next/link";
-import { FC } from "react";
+import type { FC } from "react";
 
 const baseStyle = css`
   padding: 0.75em 16px;

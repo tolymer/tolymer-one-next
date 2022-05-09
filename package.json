@@ -4,8 +4,14 @@
     "dev": "next --port 8000",
     "build": "next build",
     "start": "next start",
-    "deploy": "vercel --prod",
-    "codegen": "graphql-codegen"
+    "codegen": "graphql-codegen",
+    "lint": "run-p -l -c --aggregate-output lint:*",
+    "lint:tsc": "tsc --noEmit",
+    "lint:eslint": "eslint . --max-warnings 0",
+    "lint:prettier": "prettier --check './**/*.{ts,tsx}'",
+    "format": "run-s format:*",
+    "format:eslint": "eslint --fix .",
+    "format:prettier": "prettier --write './**/*.{ts,tsx}'"
   },
   "dependencies": {
     "@emotion/react": "^11.9.0",
@@ -26,6 +32,17 @@
     "@graphql-codegen/typescript-operations": "^2.4.0",
     "@types/node": "^17.0.31",
     "@types/react": "^18.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.22.0",
+    "@typescript-eslint/parser": "^5.22.0",
+    "eslint": "^8.15.0",
+    "eslint-config-next": "^12.1.6",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^2.7.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.5.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.6.2",
     "typescript": "^4.6.4",
     "vercel": "^24.2.0"
   }

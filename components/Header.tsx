@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { FC } from "react";
+import type { FC } from "react";
 
 type Props = {
   title: string;

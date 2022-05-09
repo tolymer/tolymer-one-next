@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
-import { FC, useCallback, useMemo, useState } from "react";
-import { GetEventQuery } from "../lib/graphql/generated";
+import type { FC } from "react";
+import { useCallback, useMemo, useState } from "react";
+import type { GetEventQuery } from "../lib/graphql/generated";
 import { Button } from "./Button";
 
 /**
@@ -110,7 +111,7 @@ export const ScoreInputForm: FC<Props> = ({ event, initialScores, onSubmit }) =>
       const scores = scoreInputs.map(scoreInputToValue);
       onSubmit(scores);
     },
-    [scoreInputs]
+    [scoreInputs, onSubmit]
   );
 
   return (

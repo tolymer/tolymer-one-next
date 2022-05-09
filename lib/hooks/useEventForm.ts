@@ -17,10 +17,11 @@ type Action =
 
 function reducer(state: EventFormValue, action: Action) {
   switch (action.type) {
-    case "inputName":
+    case "inputName": {
       const participants = state.participants.slice();
       participants[action.index].name = action.value;
       return { ...state, participants };
+    }
     case "inputDate":
       return { ...state, eventDate: action.value };
     case "setParticipants":

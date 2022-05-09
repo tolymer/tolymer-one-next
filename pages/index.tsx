@@ -1,7 +1,8 @@
 import { css } from "@emotion/react";
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { EventForm, EventFormValue } from "../components/EventForm";
+import type { EventFormValue } from "../components/EventForm";
+import { EventForm } from "../components/EventForm";
 import { graphqlClient } from "../lib/graphql/client";
 
 const Home: NextPage = () => {

@@ -1,15 +1,16 @@
 import { css } from "@emotion/react";
-import { NextPage, GetServerSideProps } from "next";
-import { graphqlClient } from "../../../lib/graphql/client";
-import { GetEventQuery } from "../../../lib/graphql/generated";
-import { EventPageHeader } from "../../../components/Header";
-import { Button } from "../../../components/Button";
+import type { NextPage, GetServerSideProps } from "next";
 import Link from "next/link";
-import { IoMdArrowRoundBack } from "react-icons/io";
-import { Input } from "../../../components/Input";
-import { Participant, useEventForm } from "../../../lib/hooks/useEventForm";
-import { useCallback } from "react";
 import { useRouter } from "next/router";
+import { useCallback } from "react";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { Button } from "../../../components/Button";
+import { EventPageHeader } from "../../../components/Header";
+import { Input } from "../../../components/Input";
+import { graphqlClient } from "../../../lib/graphql/client";
+import type { GetEventQuery } from "../../../lib/graphql/generated";
+import type { Participant } from "../../../lib/hooks/useEventForm";
+import { useEventForm } from "../../../lib/hooks/useEventForm";
 
 type Event = GetEventQuery["event"];
 
@@ -34,7 +35,7 @@ const EditPage: NextPage<Props> = ({ event }) => {
       });
       router.push(`/events/${event.token}`);
     },
-    [event, state]
+    [event, state, router]
   );
   return (
     <div>

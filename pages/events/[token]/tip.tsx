@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { NextPage, GetServerSideProps } from "next";
+import type { NextPage, GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useMemo } from "react";
@@ -8,7 +8,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { EventPageHeader } from "../../../components/Header";
 import { ScoreInputForm } from "../../../components/ScoreInputForm";
 import { graphqlClient } from "../../../lib/graphql/client";
-import { GetEventQuery } from "../../../lib/graphql/generated";
+import type { GetEventQuery } from "../../../lib/graphql/generated";
 
 type Props = {
   event: GetEventQuery["event"];
@@ -42,7 +42,7 @@ const TipPage: NextPage<Props> = ({ event }) => {
     if (event.tip) {
       return event.tip.results.map((result) => result.score);
     } else {
-      return event.participants.map((_) => null);
+      return event.participants.map(() => null);
     }
   }, [event]);
 

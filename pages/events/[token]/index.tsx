@@ -1,15 +1,15 @@
 import { css } from "@emotion/react";
-import { NextPage, GetServerSideProps } from "next";
-import Head from "next/head";
 import dayjs from "dayjs";
-import { graphqlClient } from "../../../lib/graphql/client";
-import { GetEventQuery } from "../../../lib/graphql/generated";
+import type { NextPage, GetServerSideProps } from "next";
+import Head from "next/head";
+import Link from "next/link";
+import { BiEdit } from "react-icons/bi";
+import { IoMdHome } from "react-icons/io";
+import { LinkButton } from "../../../components/Button";
 import { EventPageHeader } from "../../../components/Header";
 import { ResultTable } from "../../../components/ResultTable";
-import { LinkButton } from "../../../components/Button";
-import Link from "next/link";
-import { IoMdHome } from "react-icons/io";
-import { BiEdit } from "react-icons/bi";
+import { graphqlClient } from "../../../lib/graphql/client";
+import type { GetEventQuery } from "../../../lib/graphql/generated";
 
 type Event = GetEventQuery["event"];
 

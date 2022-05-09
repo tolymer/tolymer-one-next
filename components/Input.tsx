@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { FC } from "react";
+import type { FC } from "react";
 
 export const Input: FC<React.HTMLProps<HTMLInputElement>> = (props) => {
   return <input css={style} {...props} />;
