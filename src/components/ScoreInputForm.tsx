@@ -112,11 +112,9 @@ export const ScoreInputForm: FC<Props> = ({ event, initialScores, onSubmit }) =>
       if (!validateScoreInputs(scoreInputs)) return;
       const scores = scoreInputs.map(scoreInputToValue);
       setLoading(true);
-      onSubmit(scores)
-        .then(() => wait(3000)) // ページ遷移前にloadingが終わるので遅らせる
-        .finally(() => {
-          setLoading(false);
-        });
+      onSubmit(scores).catch(() => {
+        setLoading(false);
+      });
     },
     [scoreInputs, onSubmit]
   );
