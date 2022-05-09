@@ -10,9 +10,12 @@ import { ScoreInputForm } from "~/components/ScoreInputForm";
 import { graphqlClient } from "~/lib/graphql/client";
 import type { GetEventQuery } from "~/lib/graphql/generated";
 
+type Event = NonNullable<GetEventQuery["event"]>;
+type Game = Event["games"][number];
+
 type Props = {
-  event: GetEventQuery["event"];
-  game: GetEventQuery["event"]["games"][number];
+  event: Event;
+  game: Game;
 };
 
 const GamePage: NextPage<Props> = ({ event, game }) => {
@@ -72,18 +75,19 @@ const rootStyle = css`
   max-width: 640px;
 `;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   const { query } = context;
   const token = query.token as string;
   const gameId = Number(query.id);
   const { event } = await graphqlClient.getEvent({ token });
-  const game = event.games.find((game) => game.id === gameId);
+  const game = event?.games.find((game) => game.id === gameId);
+
+  if (event == null || game == null) {
+    return { notFound: true };
+  }
 
   return {
-    props: {
-      event,
-      game,
-    },
+    props: { event, game },
   };
 };
 

@@ -1,7 +1,7 @@
 schema: ../tolymer-one-api/graphql/schema.graphql
 documents: ./graphql/**/*.graphql
 generates:
-  lib/graphql/generated.ts:
+  src/lib/graphql/generated.ts:
     plugins:
       - typescript
       - typescript-operations

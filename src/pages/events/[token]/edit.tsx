@@ -12,10 +12,8 @@ import type { GetEventQuery } from "~/lib/graphql/generated";
 import type { Participant } from "~/lib/hooks/useEventForm";
 import { useEventForm } from "~/lib/hooks/useEventForm";
 
-type Event = GetEventQuery["event"];
-
 type Props = {
-  event: Event;
+  event: NonNullable<GetEventQuery["event"]>;
 };
 
 const EditPage: NextPage<Props> = ({ event }) => {
@@ -124,15 +122,15 @@ const buttonStyle = css`
   text-align: center;
 `;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   const { query } = context;
   const token = query.token as string;
-  const eventQuery = await graphqlClient.getEvent({ token });
+  const { event } = await graphqlClient.getEvent({ token });
+
+  if (event == null) return { notFound: true };
 
   return {
-    props: {
-      event: eventQuery.event,
-    },
+    props: { event },
   };
 };
 

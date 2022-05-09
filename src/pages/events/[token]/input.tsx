@@ -10,7 +10,7 @@ import { graphqlClient } from "~/lib/graphql/client";
 import type { GetEventQuery } from "~/lib/graphql/generated";
 
 type Props = {
-  event: GetEventQuery["event"];
+  event: NonNullable<GetEventQuery["event"]>;
 };
 
 const initialScores = [null, null, null, null];
@@ -58,15 +58,15 @@ const rootStyle = css`
   max-width: 640px;
 `;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   const { query } = context;
   const token = query.token as string;
-  const eventQuery = await graphqlClient.getEvent({ token });
+  const { event } = await graphqlClient.getEvent({ token });
+
+  if (event == null) return { notFound: true };
 
   return {
-    props: {
-      event: eventQuery.event,
-    },
+    props: { event },
   };
 };
 
