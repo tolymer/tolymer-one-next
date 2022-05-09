@@ -9,6 +9,7 @@ import { Main } from "~/components/Main";
 import { ScoreInputForm } from "~/components/ScoreInputForm";
 import { graphqlClient } from "~/lib/graphql/client";
 import type { GetEventQuery } from "~/lib/graphql/generated";
+import { wait } from "~/lib/wait";
 
 type Event = NonNullable<GetEventQuery["event"]>;
 type Game = Event["games"][number];

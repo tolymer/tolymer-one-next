@@ -1,15 +1,16 @@
 import { css } from "@emotion/react";
 import dayjs from "dayjs";
 import type { FC } from "react";
-import { useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Button } from "./Button";
 import { Input } from "~/components/Input";
 import { useEventForm } from "~/lib/hooks/useEventForm";
 import type { EventFormValue } from "~/lib/hooks/useEventForm";
 import { storeParticipants, usePreviousParticipants } from "~/lib/hooks/usePreviousParitipants";
+import { wait } from "~/lib/wait";
 
 type Props = {
-  onSubmit: (value: EventFormValue) => void;
+  onSubmit: (value: EventFormValue) => Promise<void>;
 };
 
 export type { EventFormValue };
@@ -23,13 +24,18 @@ const initialState = {
 
 export const NewEventForm: FC<Props> = ({ onSubmit }) => {
   const [state, dispatch] = useEventForm(initialState);
+  const [isLoading, setLoading] = useState(false);
   const previousParticipants = usePreviousParticipants();
 
   const handleSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       storeParticipants(state.participants.map((p) => p.name));
-      onSubmit(state);
+      setLoading(true);
+      onSubmit(state).finally(async () => {
+        await wait(1000); // ページ遷移前にloadingが終わるので遅らせる
+        setLoading(false);
+      });
     },
     [state, onSubmit]
   );
@@ -83,7 +89,7 @@ export const NewEventForm: FC<Props> = ({ onSubmit }) => {
         />
       </section>
       <div css={actionStyle}>
-        <Button type="submit" kind="primary" size="large">
+        <Button type="submit" kind="primary" size="large" loading={isLoading}>
           イベント作成
         </Button>
       </div>

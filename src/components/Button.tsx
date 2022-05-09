@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import Link from "next/link";
 import type { FC } from "react";
+import { ThreeDots } from "react-loading-icons";
 
 const baseStyle = css`
   padding: 0.75em 16px;
@@ -83,23 +84,49 @@ const kinds = {
 } as const;
 
 const sizes = {
-  normal: css``,
+  normal: css`
+    min-width: 80px;
+  `,
   large: css`
     min-width: 240px;
   `,
 } as const;
 
+const loadingIconStyle = css`
+  vertical-align: bottom;
+  line-height: 0.8;
+`;
+
+const LoadingIcon: FC = () => {
+  return (
+    <span css={loadingIconStyle}>
+      <ThreeDots width="30" height="1em" fill="#2e282a" />
+    </span>
+  );
+};
+
 type ButtonProps = {
   kind?: keyof typeof kinds;
   size?: keyof typeof sizes;
   type?: "button" | "submit" | "reset";
+  loading?: boolean;
 } & Omit<React.HTMLProps<HTMLButtonElement>, "type" | "size">;
 
-export const Button: FC<ButtonProps> = ({ type = "button", kind = "normal", size = "normal", children, ...props }) => {
+export const Button: FC<ButtonProps> = ({
+  type = "button",
+  kind = "normal",
+  size = "normal",
+  loading,
+  children,
+  ...props
+}) => {
   const styles = [baseStyle, kinds[kind], sizes[size]];
+  if (loading) {
+    props.disabled = true;
+  }
   return (
     <button css={styles} type={type} {...props}>
-      {children}
+      {loading ? <LoadingIcon /> : children}
     </button>
   );
 };

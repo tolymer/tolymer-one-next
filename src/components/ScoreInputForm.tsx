@@ -3,6 +3,7 @@ import type { FC } from "react";
 import { useCallback, useMemo, useState } from "react";
 import { Button } from "./Button";
 import type { GetEventQuery } from "~/lib/graphql/generated";
+import { wait } from "~/lib/wait";
 
 /**
  * スコア入力のテキストボックスの状態を表す型
@@ -87,13 +88,14 @@ function scoresToInputs(scores: Array<number | null>): ScoreInput[] {
 }
 
 type Props = {
-  event: GetEventQuery["event"];
+  event: NonNullable<GetEventQuery["event"]>;
   initialScores: Array<number | null>;
-  onSubmit: (scores: number[]) => void;
+  onSubmit: (scores: number[]) => Promise<void>;
 };
 
 export const ScoreInputForm: FC<Props> = ({ event, initialScores, onSubmit }) => {
   const [scoreInputs, setScoreInputs] = useState<ScoreInput[]>(() => scoresToInputs(initialScores));
+  const [isLoading, setLoading] = useState(false);
 
   const isValidScores = useMemo(() => validateScoreInputs(scoreInputs), [scoreInputs]);
 
@@ -109,7 +111,11 @@ export const ScoreInputForm: FC<Props> = ({ event, initialScores, onSubmit }) =>
       e.preventDefault();
       if (!validateScoreInputs(scoreInputs)) return;
       const scores = scoreInputs.map(scoreInputToValue);
-      onSubmit(scores);
+      setLoading(true);
+      onSubmit(scores).finally(async () => {
+        await wait(1000); // ページ遷移前にloadingが終わるので遅らせる
+        setLoading(false);
+      });
     },
     [scoreInputs, onSubmit]
   );
@@ -140,6 +146,7 @@ export const ScoreInputForm: FC<Props> = ({ event, initialScores, onSubmit }) =>
             type="submit"
             disabled={!isValidScores}
             kind={isValidScores ? "primary" : "disable"}
+            loading={isLoading}
             onClick={handleSubmit}
           >
             決定
