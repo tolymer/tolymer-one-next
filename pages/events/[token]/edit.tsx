@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import { NextPage, GetServerSideProps } from "next";
 import { graphqlClient } from "../../../lib/graphql/client";
 import { GetEventQuery } from "../../../lib/graphql/generated";
-import { Header } from "../../../components/pages/events/Header";
+import { EventPageHeader } from "../../../components/Header";
 import { Button } from "../../../components/Button";
 import Link from "next/link";
 import { IoMdArrowRoundBack } from "react-icons/io";
@@ -38,7 +38,7 @@ const EditPage: NextPage<Props> = ({ event }) => {
   );
   return (
     <div>
-      <Header
+      <EventPageHeader
         title="イベント情報の変更"
         leftButton={
           <Link href="/events/[token]" as={`/events/${event.token}`}>

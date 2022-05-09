@@ -5,8 +5,8 @@ import { useRouter } from "next/router";
 import { useCallback, useMemo } from "react";
 import { BiTrash } from "react-icons/bi";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { Header } from "../../../components/pages/events/Header";
-import { ScoreInputForm } from "../../../components/pages/events/ScoreInputForm";
+import { EventPageHeader } from "../../../components/Header";
+import { ScoreInputForm } from "../../../components/ScoreInputForm";
 import { graphqlClient } from "../../../lib/graphql/client";
 import { GetEventQuery } from "../../../lib/graphql/generated";
 
@@ -48,7 +48,7 @@ const TipPage: NextPage<Props> = ({ event }) => {
 
   return (
     <div css={rootStyle}>
-      <Header
+      <EventPageHeader
         title="チップ入力"
         leftButton={
           <Link href="/events/[token]" as={`/events/${event.token}`}>
@@ -64,7 +64,7 @@ const TipPage: NextPage<Props> = ({ event }) => {
             </button>
           ) : undefined
         }
-      ></Header>
+      ></EventPageHeader>
       <ScoreInputForm event={event} initialScores={initialScores} onSubmit={handleSubmit} />
     </div>
   );

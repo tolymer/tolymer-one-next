@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import Link from "next/link";
 import { FC } from "react";
-import { GetEventQuery } from "../../../lib/graphql/generated";
+import { GetEventQuery } from "../lib/graphql/generated";
 
 type Event = GetEventQuery["event"];
 

@@ -19,48 +19,6 @@ const initialState = {
   eventDate: dayjs().format("YYYY-MM-DD"),
 };
 
-const rootStyle = css`
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 16px;
-  padding-right: 16px;
-  max-width: 640px;
-`;
-
-const participantsHeaderStyle = css`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-
-  button {
-    margin-bottom: 3px;
-  }
-`;
-
-const titleStyle = css`
-  font-size: 1rem;
-  margin: 0 0 8px 0;
-  padding: 0;
-`;
-
-const sectionStyle = css`
-  margin-bottom: 30px;
-`;
-
-const participantsListStyle = css`
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  > li {
-    margin: 0 0 8px 0;
-    font-size: 1rem;
-  }
-`;
-
-const actionStyle = css`
-  text-align: center;
-`;
-
 export const EventForm: FC<Props> = ({ onSubmit }) => {
   const [state, dispatch] = useEventForm(initialState);
   const previousParticipants = usePreviousParticipants();
@@ -130,3 +88,45 @@ export const EventForm: FC<Props> = ({ onSubmit }) => {
     </form>
   );
 };
+
+const rootStyle = css`
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  max-width: 640px;
+`;
+
+const participantsHeaderStyle = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  button {
+    margin-bottom: 3px;
+  }
+`;
+
+const titleStyle = css`
+  font-size: 1rem;
+  margin: 0 0 8px 0;
+  padding: 0;
+`;
+
+const sectionStyle = css`
+  margin-bottom: 30px;
+`;
+
+const participantsListStyle = css`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  > li {
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+  }
+`;
+
+const actionStyle = css`
+  text-align: center;
+`;

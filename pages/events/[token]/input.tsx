@@ -5,9 +5,9 @@ import { graphqlClient } from "../../../lib/graphql/client";
 import { GetEventQuery } from "../../../lib/graphql/generated";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Header } from "../../../components/pages/events/Header";
+import { EventPageHeader } from "../../../components/Header";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { ScoreInputForm } from "../../../components/pages/events/ScoreInputForm";
+import { ScoreInputForm } from "../../../components/ScoreInputForm";
 
 type Props = {
   event: GetEventQuery["event"];
@@ -32,7 +32,7 @@ const InputGameResultPage: NextPage<Props> = ({ event }) => {
 
   return (
     <div css={rootStyle}>
-      <Header
+      <EventPageHeader
         title="スコア入力"
         leftButton={
           <Link href="/events/[token]" as={`/events/${event.token}`}>
@@ -46,7 +46,7 @@ const InputGameResultPage: NextPage<Props> = ({ event }) => {
             <a>Tip</a>
           </Link>
         }
-      ></Header>
+      ></EventPageHeader>
       <ScoreInputForm event={event} initialScores={initialScores} onSubmit={handleSubmit} />
     </div>
   );

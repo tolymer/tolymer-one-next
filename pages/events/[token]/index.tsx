@@ -4,8 +4,8 @@ import Head from "next/head";
 import dayjs from "dayjs";
 import { graphqlClient } from "../../../lib/graphql/client";
 import { GetEventQuery } from "../../../lib/graphql/generated";
-import { Header } from "../../../components/pages/events/Header";
-import { ResultTable } from "../../../components/pages/events/ResultTable";
+import { EventPageHeader } from "../../../components/Header";
+import { ResultTable } from "../../../components/ResultTable";
 import { LinkButton } from "../../../components/Button";
 import Link from "next/link";
 import { IoMdHome } from "react-icons/io";
@@ -28,7 +28,7 @@ const EventPage: NextPage<Props> = ({ event }) => {
           content={`${formattedDate}に開催。参加者は${event.participants.map((p) => p.name).join("、")}`}
         />
       </Head>
-      <Header
+      <EventPageHeader
         title={formattedDate}
         leftButton={
           <Link href="/">

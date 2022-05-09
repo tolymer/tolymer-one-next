@@ -1,6 +1,21 @@
 import { Global, css } from "@emotion/react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
+export default class CustomDocument extends Document {
+  render() {
+    return (
+      <Html lang="ja">
+        <Head />
+        <body>
+          <Global styles={globalStyle} />
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
+}
+
 const globalStyle = css`
   /* vietnamese */
   @font-face {
@@ -43,19 +58,3 @@ const globalStyle = css`
     padding: 0;
   }
 `;
-
-export default class CustomDocument extends Document {
-  render() {
-    return (
-      <Html lang="ja">
-        <Head />
-
-        <body>
-          <Global styles={globalStyle} />
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
-  }
-}

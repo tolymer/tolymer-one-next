@@ -1,6 +1,10 @@
 import { css } from "@emotion/react";
 import { FC } from "react";
 
+export const Input: FC<React.HTMLProps<HTMLInputElement>> = (props) => {
+  return <input css={style} {...props} />;
+};
+
 const style = css`
   outline: none;
   padding: 8px 12px;
@@ -20,7 +24,3 @@ const style = css`
     border-color: #5dc0f6;
   }
 `;
-
-export const Input: FC<React.HTMLProps<HTMLInputElement>> = (props) => {
-  return <input css={style} {...props} />;
-};

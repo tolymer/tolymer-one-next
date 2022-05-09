@@ -7,7 +7,7 @@ type Props = {
   rightButton?: JSX.Element;
 };
 
-export const Header: FC<Props> = ({ title, leftButton, rightButton }) => {
+export const EventPageHeader: FC<Props> = ({ title, leftButton, rightButton }) => {
   return (
     <header css={rootStyle}>
       <div css={innerStyle}>
