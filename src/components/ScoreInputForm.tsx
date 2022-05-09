@@ -3,7 +3,6 @@ import type { FC } from "react";
 import { useCallback, useMemo, useState } from "react";
 import { Button } from "./Button";
 import type { GetEventQuery } from "~/lib/graphql/generated";
-import { wait } from "~/lib/wait";
 
 /**
  * スコア入力のテキストボックスの状態を表す型

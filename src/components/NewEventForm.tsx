@@ -7,7 +7,6 @@ import { Input } from "~/components/Input";
 import { useEventForm } from "~/lib/hooks/useEventForm";
 import type { EventFormValue } from "~/lib/hooks/useEventForm";
 import { storeParticipants, usePreviousParticipants } from "~/lib/hooks/usePreviousParitipants";
-import { wait } from "~/lib/wait";
 
 type Props = {
   onSubmit: (value: EventFormValue) => Promise<void>;
