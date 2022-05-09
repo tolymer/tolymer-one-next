@@ -18,7 +18,7 @@ export type { EventFormValue };
 const placeholderNames = ["ほかむら", "たに", "せんすい", "たなか"];
 
 const initialState = {
-  participants: Array(4).fill({ name: "" }),
+  participants: [...Array(4)].map(() => ({ name: "" })),
   eventDate: dayjs().format("YYYY-MM-DD"),
 };
 
