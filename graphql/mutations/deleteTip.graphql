@@ -1,0 +1,5 @@
+mutation deleteTip($eventToken: String!) {
+  deleteTip(input: { eventToken: $eventToken }) {
+    clientMutationId
+  }
+}

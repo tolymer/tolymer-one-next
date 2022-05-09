@@ -1,0 +1,5 @@
+mutation upsertTip($eventToken: String!, $results: [TipResultInput!]!) {
+  upsertTip(input: { eventToken: $eventToken, results: $results }) {
+    clientMutationId
+  }
+}

@@ -58,6 +58,7 @@ const rightButtonStyle = css`
 
   a {
     color: black;
+    text-decoration: none;
   }
 
   button {

@@ -266,6 +266,13 @@ export type DeleteGameMutationVariables = {
 
 export type DeleteGameMutation = { deleteGame?: Maybe<{ clientMutationId?: Maybe<string> }> };
 
+export type DeleteTipMutationVariables = {
+  eventToken: Scalars['String'];
+};
+
+
+export type DeleteTipMutation = { deleteTip?: Maybe<{ clientMutationId?: Maybe<string> }> };
+
 export type UpdateEventMutationVariables = {
   eventToken: Scalars['String'];
   eventDate: Scalars['ISO8601Date'];
@@ -283,6 +290,14 @@ export type UpdateGameMutationVariables = {
 
 
 export type UpdateGameMutation = { updateGame?: Maybe<{ clientMutationId?: Maybe<string> }> };
+
+export type UpsertTipMutationVariables = {
+  eventToken: Scalars['String'];
+  results: Array<TipResultInput>;
+};
+
+
+export type UpsertTipMutation = { upsertTip?: Maybe<{ clientMutationId?: Maybe<string> }> };
 
 export type GetEventQueryVariables = {
   token: Scalars['String'];
@@ -322,6 +337,13 @@ export const DeleteGameDocument = gql`
   }
 }
     `;
+export const DeleteTipDocument = gql`
+    mutation deleteTip($eventToken: String!) {
+  deleteTip(input: {eventToken: $eventToken}) {
+    clientMutationId
+  }
+}
+    `;
 export const UpdateEventDocument = gql`
     mutation updateEvent($eventToken: String!, $eventDate: ISO8601Date!, $participants: [ParticipantRenameInput!]!) {
   updateEvent(input: {eventToken: $eventToken, eventDate: $eventDate}) {
@@ -339,6 +361,13 @@ export const UpdateEventDocument = gql`
 export const UpdateGameDocument = gql`
     mutation updateGame($eventToken: String!, $gameId: Int!, $results: [GameResultInput!]!) {
   updateGame(input: {eventToken: $eventToken, gameId: $gameId, results: $results}) {
+    clientMutationId
+  }
+}
+    `;
+export const UpsertTipDocument = gql`
+    mutation upsertTip($eventToken: String!, $results: [TipResultInput!]!) {
+  upsertTip(input: {eventToken: $eventToken, results: $results}) {
     clientMutationId
   }
 }
@@ -385,11 +414,17 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     deleteGame(variables: DeleteGameMutationVariables): Promise<DeleteGameMutation> {
       return withWrapper(() => client.request<DeleteGameMutation>(print(DeleteGameDocument), variables));
     },
+    deleteTip(variables: DeleteTipMutationVariables): Promise<DeleteTipMutation> {
+      return withWrapper(() => client.request<DeleteTipMutation>(print(DeleteTipDocument), variables));
+    },
     updateEvent(variables: UpdateEventMutationVariables): Promise<UpdateEventMutation> {
       return withWrapper(() => client.request<UpdateEventMutation>(print(UpdateEventDocument), variables));
     },
     updateGame(variables: UpdateGameMutationVariables): Promise<UpdateGameMutation> {
       return withWrapper(() => client.request<UpdateGameMutation>(print(UpdateGameDocument), variables));
+    },
+    upsertTip(variables: UpsertTipMutationVariables): Promise<UpsertTipMutation> {
+      return withWrapper(() => client.request<UpsertTipMutation>(print(UpsertTipDocument), variables));
     },
     getEvent(variables: GetEventQueryVariables): Promise<GetEventQuery> {
       return withWrapper(() => client.request<GetEventQuery>(print(GetEventDocument), variables));

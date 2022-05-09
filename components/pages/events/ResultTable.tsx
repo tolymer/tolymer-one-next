@@ -20,6 +20,12 @@ function getTotalScores(event: Event): number[] {
       scores[result.participantId] += result.score;
     });
   });
+  event.tip?.results.forEach((result) => {
+    if (scores[result.participantId] === undefined) {
+      scores[result.participantId] = 0;
+    }
+    scores[result.participantId] += result.score;
+  });
 
   return event.participants.map((p) => scores[p.id]);
 }
@@ -48,21 +54,29 @@ export const ResultTable: FC<Props> = ({ event }) => {
           {event.games.map((game, i) => (
             <tr key={game.id}>
               <th css={gameNumberStyle}>
-                <Link
-                  href="/events/[token]/games/[id]"
-                  as={`/events/${event.token}/games/${game.id}`}
-                >
+                <Link href="/events/[token]/games/[id]" as={`/events/${event.token}/games/${game.id}`}>
                   <a>{i + 1}</a>
                 </Link>
               </th>
               {event.participants.map((p) => {
-                const score = game.results.filter(
-                  (r) => r.participantId === p.id
-                )[0].score;
+                const score = game.results.filter((r) => r.participantId === p.id)[0].score;
                 return <ScoreRow key={p.id} score={score} />;
               })}
             </tr>
           ))}
+          {event.tip && (
+            <tr>
+              <th css={[gameNumberStyle, tipStyle]}>
+                <Link href="/events/[token]/tip" as={`/events/${event.token}/tip`}>
+                  <a>T</a>
+                </Link>
+              </th>
+              {event.participants.map((p) => {
+                const score = event.tip!.results.filter((r) => r.participantId === p.id)[0].score;
+                return <ScoreRow key={p.id} score={score} />;
+              })}
+            </tr>
+          )}
           {event.games.length !== 0 && (
             <tr css={totalRowStyle}>
               <th></th>
@@ -151,5 +165,7 @@ const gameNumberStyle = css`
 `;
 
 const tipStyle = css`
-  background-color: #e67b3a;
+  a {
+    background-color: #e67b3a;
+  }
 `;

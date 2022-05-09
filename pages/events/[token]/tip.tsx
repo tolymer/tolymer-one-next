@@ -1,27 +1,25 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import { useCallback, useMemo, useState } from "react";
 import { NextPage, GetServerSideProps } from "next";
-import { graphqlClient } from "../../../lib/graphql/client";
-import { GetEventQuery } from "../../../lib/graphql/generated";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Header } from "../../../components/pages/events/Header";
+import { useCallback, useMemo } from "react";
+import { BiTrash } from "react-icons/bi";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { Button } from "../../../components/Button";
+import { Header } from "../../../components/pages/events/Header";
 import { ScoreInputForm } from "../../../components/pages/events/ScoreInputForm";
+import { graphqlClient } from "../../../lib/graphql/client";
+import { GetEventQuery } from "../../../lib/graphql/generated";
 
 type Props = {
   event: GetEventQuery["event"];
 };
 
-const initialScores = [null, null, null, null];
-
-const InputGameResultPage: NextPage<Props> = ({ event }) => {
+const TipPage: NextPage<Props> = ({ event }) => {
   const router = useRouter();
   const handleSubmit = useCallback(
     async (scores: number[]) => {
-      await graphqlClient.createGame({
+      await graphqlClient.upsertTip({
         eventToken: event.token,
         results: event.participants.map((p, i) => {
           return { participantId: p.id, score: scores[i] };
@@ -31,11 +29,28 @@ const InputGameResultPage: NextPage<Props> = ({ event }) => {
     },
     [event, router]
   );
+  const handleDelete = useCallback(async () => {
+    if (window.confirm("削除しますか？") === false) {
+      return;
+    }
+    await graphqlClient.deleteTip({
+      eventToken: event.token,
+    });
+    router.push(`/events/${event.token}`);
+  }, [event, router]);
+
+  const initialScores = useMemo(() => {
+    if (event.tip) {
+      return event.tip.results.map((result) => result.score);
+    } else {
+      return event.participants.map((_) => null);
+    }
+  }, [event]);
 
   return (
     <div css={rootStyle}>
       <Header
-        title="スコア入力"
+        title="チップ入力"
         leftButton={
           <Link href="/events/[token]" as={`/events/${event.token}`}>
             <a>
@@ -44,9 +59,11 @@ const InputGameResultPage: NextPage<Props> = ({ event }) => {
           </Link>
         }
         rightButton={
-          <Link href="/events/[token]/tip" as={`/events/${event.token}/tip`}>
-            <a>Tip</a>
-          </Link>
+          event.tip ? (
+            <button onClick={handleDelete}>
+              <BiTrash />
+            </button>
+          ) : undefined
         }
       ></Header>
       <ScoreInputForm event={event} initialScores={initialScores} onSubmit={handleSubmit} />
@@ -63,13 +80,13 @@ const rootStyle = css`
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context;
   const token = query.token as string;
-  const eventQuery = await graphqlClient.getEvent({ token });
+  const { event } = await graphqlClient.getEvent({ token });
 
   return {
     props: {
-      event: eventQuery.event,
+      event,
     },
   };
 };
 
-export default InputGameResultPage;
+export default TipPage;
