@@ -4,13 +4,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { Button } from "../../../components/Button";
-import { EventPageHeader } from "../../../components/Header";
-import { Input } from "../../../components/Input";
-import { graphqlClient } from "../../../lib/graphql/client";
-import type { GetEventQuery } from "../../../lib/graphql/generated";
-import type { Participant } from "../../../lib/hooks/useEventForm";
-import { useEventForm } from "../../../lib/hooks/useEventForm";
+import { Button } from "~/components/Button";
+import { EventPageHeader } from "~/components/Header";
+import { Input } from "~/components/Input";
+import { graphqlClient } from "~/lib/graphql/client";
+import type { GetEventQuery } from "~/lib/graphql/generated";
+import type { Participant } from "~/lib/hooks/useEventForm";
+import { useEventForm } from "~/lib/hooks/useEventForm";
 
 type Event = GetEventQuery["event"];
 

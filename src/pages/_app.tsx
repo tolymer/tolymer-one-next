@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { usePing } from "../lib/hooks/usePing";
+import { usePing } from "~/lib/hooks/usePing";
 
 export default function App({ Component, pageProps }: any): JSX.Element {
   usePing();

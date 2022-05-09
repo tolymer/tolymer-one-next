@@ -7,11 +7,11 @@
     "codegen": "graphql-codegen",
     "lint": "run-p -l -c --aggregate-output lint:*",
     "lint:tsc": "tsc --noEmit",
-    "lint:eslint": "eslint . --max-warnings 0",
-    "lint:prettier": "prettier --check './**/*.{ts,tsx}'",
+    "lint:eslint": "eslint --max-warnings 0 './src/**/*.{ts,tsx}'",
+    "lint:prettier": "prettier --check './src/**/*.{ts,tsx}'",
     "format": "run-s format:*",
-    "format:eslint": "eslint --fix .",
-    "format:prettier": "prettier --write './**/*.{ts,tsx}'"
+    "format:eslint": "eslint --fix './src/**/*.{ts,tsx}'",
+    "format:prettier": "prettier --write './src/**/*.{ts,tsx}'"
   },
   "dependencies": {
     "@emotion/react": "^11.9.0",

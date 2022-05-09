@@ -5,11 +5,11 @@ import Head from "next/head";
 import Link from "next/link";
 import { BiEdit } from "react-icons/bi";
 import { IoMdHome } from "react-icons/io";
-import { LinkButton } from "../../../components/Button";
-import { EventPageHeader } from "../../../components/Header";
-import { ResultTable } from "../../../components/ResultTable";
-import { graphqlClient } from "../../../lib/graphql/client";
-import type { GetEventQuery } from "../../../lib/graphql/generated";
+import { LinkButton } from "~/components/Button";
+import { EventPageHeader } from "~/components/Header";
+import { ResultTable } from "~/components/ResultTable";
+import { graphqlClient } from "~/lib/graphql/client";
+import type { GetEventQuery } from "~/lib/graphql/generated";
 
 type Event = GetEventQuery["event"];
 

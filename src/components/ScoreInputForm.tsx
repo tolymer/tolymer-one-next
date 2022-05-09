@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import type { FC } from "react";
 import { useCallback, useMemo, useState } from "react";
-import type { GetEventQuery } from "../lib/graphql/generated";
 import { Button } from "./Button";
+import type { GetEventQuery } from "~/lib/graphql/generated";
 
 /**
  * スコア入力のテキストボックスの状態を表す型

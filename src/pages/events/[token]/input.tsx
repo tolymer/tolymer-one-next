@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { EventPageHeader } from "../../../components/Header";
-import { ScoreInputForm } from "../../../components/ScoreInputForm";
-import { graphqlClient } from "../../../lib/graphql/client";
-import type { GetEventQuery } from "../../../lib/graphql/generated";
+import { EventPageHeader } from "~/components/Header";
+import { ScoreInputForm } from "~/components/ScoreInputForm";
+import { graphqlClient } from "~/lib/graphql/client";
+import type { GetEventQuery } from "~/lib/graphql/generated";
 
 type Props = {
   event: GetEventQuery["event"];

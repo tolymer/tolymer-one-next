@@ -2,11 +2,11 @@ import { css } from "@emotion/react";
 import dayjs from "dayjs";
 import type { FC } from "react";
 import { useCallback } from "react";
-import { Input } from "../components/Input";
-import type { EventFormValue } from "../lib/hooks/useEventForm";
-import { useEventForm } from "../lib/hooks/useEventForm";
-import { storeParticipants, usePreviousParticipants } from "../lib/hooks/usePreviousParitipants";
 import { Button } from "./Button";
+import { Input } from "~/components/Input";
+import { useEventForm } from "~/lib/hooks/useEventForm";
+import type { EventFormValue } from "~/lib/hooks/useEventForm";
+import { storeParticipants, usePreviousParticipants } from "~/lib/hooks/usePreviousParitipants";
 
 type Props = {
   onSubmit: (value: EventFormValue) => void;
