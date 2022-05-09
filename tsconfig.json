@@ -16,7 +16,9 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "types": ["@emotion/react/types/css-prop"],
+    "incremental": true
   },
   "exclude": [
     "node_modules"

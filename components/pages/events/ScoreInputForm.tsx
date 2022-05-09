@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
-import next from "next";
+import { css } from "@emotion/react";
 import { FC, useCallback, useMemo, useState } from "react";
 import { GetEventQuery } from "../../../lib/graphql/generated";
 import { Button } from "../../Button";

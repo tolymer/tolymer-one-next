@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
-import { useCallback, useMemo, useState } from "react";
+import { css } from "@emotion/react";
+import { useCallback } from "react";
 import { NextPage, GetServerSideProps } from "next";
 import { graphqlClient } from "../../../lib/graphql/client";
 import { GetEventQuery } from "../../../lib/graphql/generated";
@@ -8,7 +7,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Header } from "../../../components/pages/events/Header";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { Button } from "../../../components/Button";
 import { ScoreInputForm } from "../../../components/pages/events/ScoreInputForm";
 
 type Props = {

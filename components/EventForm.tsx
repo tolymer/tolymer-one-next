@@ -1,14 +1,10 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+import { css } from "@emotion/react";
 import { FC, useCallback } from "react";
 import dayjs from "dayjs";
 import { Input } from "../components/Input";
 import { Button } from "./Button";
 import { useEventForm, EventFormValue } from "../lib/hooks/useEventForm";
-import {
-  storeParticipants,
-  usePreviousParticipants,
-} from "../lib/hooks/usePreviousParitipants";
+import { storeParticipants, usePreviousParticipants } from "../lib/hooks/usePreviousParitipants";
 
 type Props = {
   onSubmit: (value: EventFormValue) => void;
@@ -123,9 +119,7 @@ export const EventForm: FC<Props> = ({ onSubmit }) => {
         <Input
           type="date"
           value={state.eventDate}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            dispatch({ type: "inputDate", value: e.target.value })
-          }
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch({ type: "inputDate", value: e.target.value })}
         />
       </section>
       <div css={actionStyle}>

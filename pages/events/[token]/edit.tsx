@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+import { css } from "@emotion/react";
 import { NextPage, GetServerSideProps } from "next";
 import { graphqlClient } from "../../../lib/graphql/client";
 import { GetEventQuery } from "../../../lib/graphql/generated";

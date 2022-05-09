@@ -1,7 +1,6 @@
-/** @jsx jsx */
+import { css } from "@emotion/react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { jsx, css } from "@emotion/core";
 import { EventForm, EventFormValue } from "../components/EventForm";
 import { graphqlClient } from "../lib/graphql/client";
 

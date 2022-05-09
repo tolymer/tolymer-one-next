@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+import { css } from "@emotion/react";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -96,13 +95,7 @@ type ButtonProps = {
   type?: "button" | "submit" | "reset";
 } & Omit<React.HTMLProps<HTMLButtonElement>, "type" | "size">;
 
-export const Button: FC<ButtonProps> = ({
-  type = "button",
-  kind = "normal",
-  size = "normal",
-  children,
-  ...props
-}) => {
+export const Button: FC<ButtonProps> = ({ type = "button", kind = "normal", size = "normal", children, ...props }) => {
   const styles = [baseStyle, kinds[kind], sizes[size]];
   return (
     <button css={styles} type={type} {...props}>
@@ -118,13 +111,7 @@ type ButtonLinkProps = {
   size?: keyof typeof sizes;
 } & Omit<React.HTMLProps<HTMLAnchorElement>, "href">;
 
-export const LinkButton: FC<ButtonLinkProps> = ({
-  href,
-  as,
-  kind = "normal",
-  children,
-  ...props
-}) => {
+export const LinkButton: FC<ButtonLinkProps> = ({ href, as, kind = "normal", children, ...props }) => {
   const styles = [baseStyle, kinds[kind]];
   return (
     <Link href={href} as={as}>

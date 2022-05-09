@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+import { css } from "@emotion/react";
 import { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import dayjs from "dayjs";
@@ -26,9 +25,7 @@ const EventPage: NextPage<Props> = ({ event }) => {
         <title>{formattedDate}のスコア - Tolymer One</title>
         <meta
           name="description"
-          content={`${formattedDate}に開催。参加者は${event.participants
-            .map((p) => p.name)
-            .join("、")}`}
+          content={`${formattedDate}に開催。参加者は${event.participants.map((p) => p.name).join("、")}`}
         />
       </Head>
       <Header
@@ -50,11 +47,7 @@ const EventPage: NextPage<Props> = ({ event }) => {
       />
       <ResultTable event={event} />
       <div css={inputButtonWrapperStyle}>
-        <LinkButton
-          href="/events/[token]/input"
-          as={`/events/${event.token}/input`}
-          kind="primary"
-        >
+        <LinkButton href="/events/[token]/input" as={`/events/${event.token}/input`} kind="primary">
           スコア入力
         </LinkButton>
       </div>

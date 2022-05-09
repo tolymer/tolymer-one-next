@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+import { css } from "@emotion/react";
 import Link from "next/link";
 import { FC } from "react";
 import { GetEventQuery } from "../../../lib/graphql/generated";
@@ -46,9 +45,9 @@ export const ResultTable: FC<Props> = ({ event }) => {
           {event.games.length === 0 && (
             <tr>
               <th css={gameNumberStyle}></th>
-              {event.participants.map((p) => {
-                <td></td>;
-              })}
+              {event.participants.map((p) => (
+                <td key={p.id}></td>
+              ))}
             </tr>
           )}
           {event.games.map((game, i) => (
