@@ -1,3 +1,4 @@
 /node_modules/
 /.next/
 /.vercel/
+/src/lib/graphql/generated.ts
