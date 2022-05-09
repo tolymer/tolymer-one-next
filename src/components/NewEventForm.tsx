@@ -32,7 +32,9 @@ export const NewEventForm: FC<Props> = ({ onSubmit }) => {
       event.preventDefault();
       storeParticipants(state.participants.map((p) => p.name));
       setLoading(true);
-      onSubmit(state).catch(() => {
+      onSubmit(state).catch((err) => {
+        console.error(err);
+        alert("An unexpected error has occurred.");
         setLoading(false);
       });
     },

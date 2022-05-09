@@ -112,7 +112,9 @@ export const ScoreInputForm: FC<Props> = ({ event, initialScores, onSubmit }) =>
       if (!validateScoreInputs(scoreInputs)) return;
       const scores = scoreInputs.map(scoreInputToValue);
       setLoading(true);
-      onSubmit(scores).catch(() => {
+      onSubmit(scores).catch((err) => {
+        console.error(err);
+        alert("An unexpected error has occurred.");
         setLoading(false);
       });
     },
