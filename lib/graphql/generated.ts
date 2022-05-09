@@ -258,6 +258,14 @@ export type CreateGameMutationVariables = {
 
 export type CreateGameMutation = { createGame?: Maybe<{ game: { id: number, results: Array<{ participantId: number, score: number, rank: number }> } }> };
 
+export type DeleteGameMutationVariables = {
+  eventToken: Scalars['String'];
+  gameId: Scalars['Int'];
+};
+
+
+export type DeleteGameMutation = { deleteGame?: Maybe<{ clientMutationId?: Maybe<string> }> };
+
 export type UpdateEventMutationVariables = {
   eventToken: Scalars['String'];
   eventDate: Scalars['ISO8601Date'];
@@ -266,6 +274,15 @@ export type UpdateEventMutationVariables = {
 
 
 export type UpdateEventMutation = { updateEvent?: Maybe<{ event: { token: string } }>, updateParticipants?: Maybe<{ participants: Array<{ id: number }> }> };
+
+export type UpdateGameMutationVariables = {
+  eventToken: Scalars['String'];
+  gameId: Scalars['Int'];
+  results: Array<GameResultInput>;
+};
+
+
+export type UpdateGameMutation = { updateGame?: Maybe<{ clientMutationId?: Maybe<string> }> };
 
 export type GetEventQueryVariables = {
   token: Scalars['String'];
@@ -298,6 +315,13 @@ export const CreateGameDocument = gql`
   }
 }
     `;
+export const DeleteGameDocument = gql`
+    mutation deleteGame($eventToken: String!, $gameId: Int!) {
+  deleteGame(input: {eventToken: $eventToken, gameId: $gameId}) {
+    clientMutationId
+  }
+}
+    `;
 export const UpdateEventDocument = gql`
     mutation updateEvent($eventToken: String!, $eventDate: ISO8601Date!, $participants: [ParticipantRenameInput!]!) {
   updateEvent(input: {eventToken: $eventToken, eventDate: $eventDate}) {
@@ -309,6 +333,13 @@ export const UpdateEventDocument = gql`
     participants {
       id
     }
+  }
+}
+    `;
+export const UpdateGameDocument = gql`
+    mutation updateGame($eventToken: String!, $gameId: Int!, $results: [GameResultInput!]!) {
+  updateGame(input: {eventToken: $eventToken, gameId: $gameId, results: $results}) {
+    clientMutationId
   }
 }
     `;
@@ -351,8 +382,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     createGame(variables: CreateGameMutationVariables): Promise<CreateGameMutation> {
       return withWrapper(() => client.request<CreateGameMutation>(print(CreateGameDocument), variables));
     },
+    deleteGame(variables: DeleteGameMutationVariables): Promise<DeleteGameMutation> {
+      return withWrapper(() => client.request<DeleteGameMutation>(print(DeleteGameDocument), variables));
+    },
     updateEvent(variables: UpdateEventMutationVariables): Promise<UpdateEventMutation> {
       return withWrapper(() => client.request<UpdateEventMutation>(print(UpdateEventDocument), variables));
+    },
+    updateGame(variables: UpdateGameMutationVariables): Promise<UpdateGameMutation> {
+      return withWrapper(() => client.request<UpdateGameMutation>(print(UpdateGameDocument), variables));
     },
     getEvent(variables: GetEventQueryVariables): Promise<GetEventQuery> {
       return withWrapper(() => client.request<GetEventQuery>(print(GetEventDocument), variables));

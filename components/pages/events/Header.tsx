@@ -59,4 +59,12 @@ const rightButtonStyle = css`
   a {
     color: black;
   }
+
+  button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-size: 20px;
+    background: none;
+  }
 `;

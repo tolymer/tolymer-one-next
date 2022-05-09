@@ -1,0 +1,5 @@
+mutation updateGame($eventToken: String!, $gameId: Int!, $results: [GameResultInput!]!) {
+  updateGame(input: { eventToken: $eventToken, gameId: $gameId, results: $results }) {
+    clientMutationId
+  }
+}

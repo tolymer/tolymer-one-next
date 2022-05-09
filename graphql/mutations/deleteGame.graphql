@@ -1,0 +1,5 @@
+mutation deleteGame($eventToken: String!, $gameId: Int!) {
+  deleteGame(input: { eventToken: $eventToken, gameId: $gameId }) {
+    clientMutationId
+  }
+}

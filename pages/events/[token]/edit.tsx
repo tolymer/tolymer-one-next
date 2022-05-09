@@ -35,7 +35,7 @@ const EditPage: NextPage<Props> = ({ event }) => {
       });
       router.push(`/events/${event.token}`);
     },
-    [state]
+    [event, state]
   );
   return (
     <div>
