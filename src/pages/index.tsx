@@ -1,9 +1,10 @@
 import { css } from "@emotion/react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import type { EventFormValue } from "../components/EventForm";
-import { EventForm } from "../components/EventForm";
+import type { EventFormValue } from "../components/NewEventForm";
+import { NewEventForm } from "../components/NewEventForm";
 import { graphqlClient } from "../lib/graphql/client";
+import { Main } from "~/components/Main";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -20,11 +21,13 @@ const Home: NextPage = () => {
   }
 
   return (
-    <main>
+    <div>
       <div css={sticksStyle}></div>
       <h1 css={titleStyle}>tolymer</h1>
-      <EventForm onSubmit={handleSubmit} />
-    </main>
+      <Main>
+        <NewEventForm onSubmit={handleSubmit} />
+      </Main>
+    </div>
   );
 };
 

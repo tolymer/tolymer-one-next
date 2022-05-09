@@ -21,7 +21,7 @@ const initialState = {
   eventDate: dayjs().format("YYYY-MM-DD"),
 };
 
-export const EventForm: FC<Props> = ({ onSubmit }) => {
+export const NewEventForm: FC<Props> = ({ onSubmit }) => {
   const [state, dispatch] = useEventForm(initialState);
   const previousParticipants = usePreviousParticipants();
 
@@ -92,11 +92,8 @@ export const EventForm: FC<Props> = ({ onSubmit }) => {
 };
 
 const rootStyle = css`
-  margin-left: auto;
-  margin-right: auto;
   padding-left: 16px;
   padding-right: 16px;
-  max-width: 640px;
 `;
 
 const participantsHeaderStyle = css`

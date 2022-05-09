@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { FC } from "react";
 import type { GetEventQuery } from "~/lib/graphql/generated";
 
-type Event = GetEventQuery["event"];
+type Event = NonNullable<GetEventQuery["event"]>;
 
 type Props = {
   event: Event;

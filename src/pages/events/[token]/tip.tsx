@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import type { NextPage, GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -6,6 +5,7 @@ import { useCallback, useMemo } from "react";
 import { BiTrash } from "react-icons/bi";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { EventPageHeader } from "~/components/Header";
+import { Main } from "~/components/Main";
 import { ScoreInputForm } from "~/components/ScoreInputForm";
 import { graphqlClient } from "~/lib/graphql/client";
 import type { GetEventQuery } from "~/lib/graphql/generated";
@@ -47,7 +47,7 @@ const TipPage: NextPage<Props> = ({ event }) => {
   }, [event]);
 
   return (
-    <div css={rootStyle}>
+    <div>
       <EventPageHeader
         title="チップ入力"
         leftButton={
@@ -65,16 +65,12 @@ const TipPage: NextPage<Props> = ({ event }) => {
           ) : undefined
         }
       ></EventPageHeader>
-      <ScoreInputForm event={event} initialScores={initialScores} onSubmit={handleSubmit} />
+      <Main>
+        <ScoreInputForm event={event} initialScores={initialScores} onSubmit={handleSubmit} />
+      </Main>
     </div>
   );
 };
-
-const rootStyle = css`
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 640px;
-`;
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   const { query } = context;

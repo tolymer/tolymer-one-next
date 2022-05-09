@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import dayjs from "dayjs";
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
@@ -7,6 +6,7 @@ import { BiEdit } from "react-icons/bi";
 import { IoMdHome } from "react-icons/io";
 import { LinkButton } from "~/components/Button";
 import { EventPageHeader } from "~/components/Header";
+import { Main } from "~/components/Main";
 import { ResultTable } from "~/components/ResultTable";
 import { graphqlClient } from "~/lib/graphql/client";
 import type { GetEventQuery } from "~/lib/graphql/generated";
@@ -18,7 +18,7 @@ type Props = {
 const EventPage: NextPage<Props> = ({ event }) => {
   const formattedDate = dayjs(event.eventDate).format("YYYY/M/D");
   return (
-    <main>
+    <div>
       <Head>
         <title>{formattedDate}のスコア - Tolymer One</title>
         <meta
@@ -43,20 +43,17 @@ const EventPage: NextPage<Props> = ({ event }) => {
           </Link>
         }
       />
-      <ResultTable event={event} />
-      <div css={inputButtonWrapperStyle}>
-        <LinkButton href="/events/[token]/input" as={`/events/${event.token}/input`} kind="primary">
-          スコア入力
-        </LinkButton>
-      </div>
-    </main>
+      <Main>
+        <ResultTable event={event} />
+        <div css={{ marginTop: 40, textAlign: "center" }}>
+          <LinkButton href="/events/[token]/input" as={`/events/${event.token}/input`} kind="primary">
+            スコア入力
+          </LinkButton>
+        </div>
+      </Main>
+    </div>
   );
 };
-
-const inputButtonWrapperStyle = css`
-  margin-top: 40px;
-  text-align: center;
-`;
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   const { query } = context;
