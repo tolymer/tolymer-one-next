@@ -16,17 +16,17 @@ function getTotalScores(event: Event): number[] {
       if (scores[result.participantId] === undefined) {
         scores[result.participantId] = 0;
       }
-      scores[result.participantId] += result.score;
+      scores[result.participantId] += result.score * 10;
     });
   });
   event.tip?.results.forEach((result) => {
     if (scores[result.participantId] === undefined) {
       scores[result.participantId] = 0;
     }
-    scores[result.participantId] += result.score;
+    scores[result.participantId] += result.score * 10;
   });
 
-  return event.participants.map((p) => scores[p.id]);
+  return event.participants.map((p) => scores[p.id] / 10);
 }
 
 export const ResultTable: FC<Props> = ({ event }) => {
