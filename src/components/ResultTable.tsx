@@ -104,7 +104,7 @@ export const ResultTable: FC<Props> = ({ event }) => {
             <tr css={totalRowStyle}>
               <th></th>
               {getTotalScores(event).map((score, i) => (
-                <ScoreRow key={i} score={score * rate} />
+                <ScoreRow key={i} score={Number((score * rate).toFixed())} />
               ))}
             </tr>
           )}
