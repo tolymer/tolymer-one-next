@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import Link from "next/link";
 import type { FC } from "react";
+import { useState } from "react";
 import type { GetEventQuery } from "~/lib/graphql/generated";
 
 type Event = NonNullable<GetEventQuery["event"]>;
@@ -30,7 +31,19 @@ function getTotalScores(event: Event): number[] {
 }
 
 export const ResultTable: FC<Props> = ({ event }) => {
+  const [rate, setRate] = useState<number | null>(null);
   const tip = event.tip;
+
+  function multiplyRate() {
+    const value = Number(prompt("?", "50"));
+    if (value !== 0 && Number.isInteger(value)) {
+      setRate(value);
+    } else {
+      alert("Please enter an integer greater than 0.");
+      return false;
+    }
+  }
+
   return (
     <div css={rootStyle}>
       <table css={tableStyle}>
@@ -79,9 +92,19 @@ export const ResultTable: FC<Props> = ({ event }) => {
           )}
           {event.games.length !== 0 && (
             <tr css={totalRowStyle}>
-              <th></th>
+              <th>
+                <button type="button" onClick={() => multiplyRate()} css={rateStyle} aria-label="Rate"></button>
+              </th>
               {getTotalScores(event).map((score, i) => (
                 <ScoreRow key={i} score={score} />
+              ))}
+            </tr>
+          )}
+          {rate && (
+            <tr css={totalRowStyle}>
+              <th></th>
+              {getTotalScores(event).map((score, i) => (
+                <ScoreRow key={i} score={score * rate} />
               ))}
             </tr>
           )}
@@ -168,4 +191,14 @@ const tipStyle = css`
   a {
     background-color: #e67b3a;
   }
+`;
+
+const rateStyle = css`
+  display: block;
+  width: 100%;
+  height: 26px;
+  background-color: transparent;
+  border: 0;
+  appearance: none;
+  -webkit-tap-highlight-color: none;
 `;
