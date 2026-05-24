@@ -39,7 +39,7 @@ function calcNextScoreInputs(inputs: ScoreInput[], value: string, index: number)
 
   const filledInputs = nextScoreInputs.filter((input) => input?.state === "filled");
   if (filledInputs.length !== 3) return nextScoreInputs;
-  const topScore = -filledInputs.map(scoreInputToValue).reduce((acc, v) => acc + v);
+  const topScore = -filledInputs.map(scoreInputToValue).reduce((acc, v) => acc + v * 10, 0) / 10;
   if (Number.isNaN(topScore)) return nextScoreInputs;
 
   return nextScoreInputs.map((input) => {
